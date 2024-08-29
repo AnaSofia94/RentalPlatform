@@ -15,11 +15,11 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-from django.urls import path
-from listings.views import SavedSearchListView, SavedSearchCreateView, SavedSearchUpdateView, SavedSearchDeleteView
+from listings.views import SavedSearchListView, SavedSearchCreateView, SavedSearchUpdateView, SavedSearchDeleteView, home
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('', home, name='home'),  # Root URL pattern
     path('saved-searches/', SavedSearchListView.as_view(), name='saved-search-list'),
     path('saved-searches/create/', SavedSearchCreateView.as_view(), name='saved-search-create'),
     path('saved-searches/<int:pk>/edit/', SavedSearchUpdateView.as_view(), name='saved-search-edit'),

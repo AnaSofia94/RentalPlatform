@@ -1,10 +1,14 @@
 from django.shortcuts import render
 from django.urls import reverse_lazy
-from django.views.generic.edit import DeleteView
 from django.views.generic import ListView, CreateView, UpdateView, DeleteView
 from django.contrib.auth.mixins import LoginRequiredMixin
 from .models import SavedSearch
+from django.shortcuts import  redirect
+from django.urls import reverse
 
+def home(request):
+
+    return redirect(reverse('saved-search-list'))
 
 class SavedSearchListView(LoginRequiredMixin, ListView):
     model = SavedSearch
@@ -16,17 +20,17 @@ class SavedSearchListView(LoginRequiredMixin, ListView):
 class SavedSearchCreateView(LoginRequiredMixin, CreateView):
     model = SavedSearch
     template_name = 'saved_search_form.html'
-    fields = ['name', 'municipality', 'rent_amount', 'is_wheelchair_friendly']  # Include all the fields you want the user to set
+    fields = ['name', 'municipality', 'rent_amount', 'is_wheelchair_friendly']
     success_url = reverse_lazy('saved-search-list')
 
     def form_valid(self, form):
-        form.instance.user = self.request.user  # Automatically associate the saved search with the logged-in user
+        form.instance.user = self.request.user
         return super().form_valid(form)
 
 class SavedSearchUpdateView(LoginRequiredMixin, UpdateView):
     model = SavedSearch
     template_name = 'saved_search_form.html'
-    fields = ['name', 'municipality', 'rent_amount', 'is_wheelchair_friendly']  # Include all the fields you want the user to update
+    fields = ['name', 'municipality', 'rent_amount', 'is_wheelchair_friendly']
     success_url = reverse_lazy('saved-search-list')
 
     def get_queryset(self):
@@ -40,4 +44,8 @@ class SavedSearchDeleteView(LoginRequiredMixin, DeleteView):
     success_url = reverse_lazy('saved-search-list')
 
     def get_queryset(self):
-        return SavedSearch.objects.filter(user=self.request.user)  # Ensure users can only delete their own saved searches
+        return SavedSearch.objects.filter(user=self.request.user)
+
+class SavedSearchListView(ListView):
+    model = SavedSearch
+    template_name = 'listings/savedsearch_list.html'

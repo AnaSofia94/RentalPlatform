@@ -1,7 +1,4 @@
 from django.db import models
-
-
-from django.db import models
 from django.contrib.auth.models import User
 
 class HomeListing(models.Model):
@@ -14,9 +11,13 @@ class HomeListing(models.Model):
     def __str__(self):
         return self.title
 
+
 class TenantListing(models.Model):
     name = models.CharField(max_length=255)
-    # tenant-specific fields
+
+    def __str__(self):
+        return self.name
+
 
 class SavedSearch(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)

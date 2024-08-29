@@ -1,0 +1,36 @@
+<!-- listings/templates/base_generic.html -->
+
+{% load static %}  <!-- Make sure this is at the top of your template -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Rental Platform{% endblock %}</title>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">  <!-- Ensure the path matches the location of your CSS file -->
+</head>
+<body>
+    <header>
+        <h1>Rental Platform</h1>
+        <nav>
+            <ul>
+                <li><a href="{% url 'home' %}">Home</a></li>
+                <li><a href="{% url 'saved-search-list' %}">Saved Searches</a></li>
+                <li><a href="{% url 'admin:index' %}">Admin</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        {% block content %}
+        <!-- Child templates will insert their content here -->
+        {% endblock %}
+    </main>
+
+    <footer>
+        <p>&copy; 2024 Rental Platform. All rights reserved.</p>
+    </footer>
+</body>
+</html>

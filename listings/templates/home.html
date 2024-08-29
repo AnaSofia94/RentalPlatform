@@ -1,0 +1,9 @@
+<!-- listings/templates/home.html -->
+
+{% extends 'base_generic.html' %}
+
+{% block content %}
+<h1>Welcome to the Rental Platform</h1>
+<p>Explore available listings and manage your saved searches.</p>
+<a href="{% url 'saved-search-list' %}">View Saved Searches</a>
+{% endblock %}

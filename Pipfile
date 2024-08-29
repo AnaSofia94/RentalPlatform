@@ -19,6 +19,7 @@ redis = "*"
 django-environ = "*"
 djangorestframework = "*"
 django-extensions = "*"
+psycopg2-binary = "*"
 
 # For sending emails (SMTP backend, etc.)
 dj-email-url = "*"

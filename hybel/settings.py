@@ -27,7 +27,7 @@ SECRET_KEY = 'django-insecure-6ut=&pxmzo7nm!t4e^iu+l^p69)rka6ya+y$3&ho9!)4c$&k^1
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -87,6 +87,19 @@ DATABASES = {
     }
 }
 
+# Check if the environment is Docker or local
+if os.getenv('DOCKERIZED', 'false').lower() == 'true':
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.postgresql',
+            'NAME': os.getenv('POSTGRES_DB', 'platform_renting'),  # Updated database name
+            'USER': os.getenv('POSTGRES_USER', 'yourdbuser'),
+            'PASSWORD': os.getenv('POSTGRES_PASSWORD', 'yourdbpassword'),
+            'HOST': 'db',  # This matches the Docker service name
+            'PORT': 5432,
+        }
+    }
+
 
 # Password validation
 # https://docs.djangoproject.com/en/3.2/ref/settings/#auth-password-validators
@@ -131,7 +144,7 @@ STATIC_URL = '/static/'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-CELERY_BROKER_URL = 'redis://localhost:6379/0'
+CELERY_BROKER_URL = 'redis://redis:6379/0'
 CELERY_RESULT_BACKEND = 'django-db'
 CELERY_CACHE_BACKEND = 'django-cache'
 
@@ -140,4 +153,11 @@ os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'hybel.settings')
 app = Celery('hybel')
 app.config_from_object('django.conf:settings', namespace='CELERY')
 app.autodiscover_tasks()
+
+
+STATICFILES_DIRS = [
+    BASE_DIR / "listings/static",
+]
+
+STATIC_ROOT = BASE_DIR / "staticfiles"
 

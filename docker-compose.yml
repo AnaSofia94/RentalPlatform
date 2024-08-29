@@ -1,0 +1,33 @@
+version: '3.8'
+
+services:
+  web:
+    build: .
+    environment:
+      - DOCKERIZED=true
+    command: >
+      sh -c "python manage.py migrate &&
+             python manage.py runserver 0.0.0.0:8000"
+    volumes:
+      - .:/app
+    ports:
+      - "8000:8000"
+    depends_on:
+      - db
+      - redis
+
+  db:
+    image: postgres:13
+    environment:
+      POSTGRES_DB: platform_renting  # This is the name of the database
+      POSTGRES_USER: yourdbuser       # Replace with your PostgreSQL username
+      POSTGRES_PASSWORD: yourdbpassword  # Replace with your PostgreSQL password
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    restart: always  # Ensures that the db service restarts if it fails initially
+
+  redis:
+    image: redis:latest
+
+volumes:
+  postgres_data:

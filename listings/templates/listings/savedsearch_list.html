@@ -1,0 +1,39 @@
+<!-- listings/templates/listings/savedsearch_list.html -->
+
+{% extends 'base_generic.html' %}
+
+{% block content %}
+<h1>Saved Searches</h1>
+
+<table>
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Municipality</th>
+            <th>Rent Amount</th>
+            <th>Wheelchair Friendly</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for search in object_list %}
+        <tr>
+            <td>{{ search.name }}</td>
+            <td>{{ search.municipality }}</td>
+            <td>{{ search.rent_amount }}</td>
+            <td>{{ search.is_wheelchair_friendly|yesno:"Yes,No" }}</td>
+            <td>
+                <a href="{% url 'saved-search-edit' search.pk %}">Edit</a> |
+                <a href="{% url 'saved-search-delete' search.pk %}">Delete</a>
+            </td>
+        </tr>
+        {% empty %}
+        <tr>
+            <td colspan="5">No saved searches found.</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+<a href="{% url 'saved-search-create' %}">Create New Saved Search</a>
+{% endblock %}
