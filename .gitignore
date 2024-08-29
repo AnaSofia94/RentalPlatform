@@ -1,1 +1,3 @@
 *.sqlite3
+# Ignore Redis database dump
+dump.rdb
