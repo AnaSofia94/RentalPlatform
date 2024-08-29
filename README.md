@@ -20,6 +20,45 @@ Rental Platform is a comprehensive solution designed to manage rental listings, 
 - Redis (for Celery backend)
 - PostgreSQL (Database)
 
+## Project Structure
+
+Here's an overview of the main directories and files in the project:
+
+RentalPlatform/
+│
+├── hybel/                   # Main Django application folder
+│   ├── init.py
+│   ├── settings.py          # Django settings file
+│   ├── urls.py              # URL routing file
+│   ├── wsgi.py              # WSGI configuration for deployment
+│   ├── asgi.py              # ASGI configuration for asynchronous deployment
+│   └── celery.py            # Celery configuration file
+│
+├── listings/                # Listings app for managing rental properties
+│   ├── migrations/          # Database migrations for the listings app
+│   ├── templates/           # HTML templates
+│   │   ├── saved_search_confirm_delete.html
+│   │   └── saved_search_form.html
+│   ├── admin.py             # Django admin configurations
+│   ├── apps.py              # App configuration
+│   ├── models.py            # Models for database structure
+│   ├── tests.py             # Unit tests for the listings app
+│   └── views.py             # Views handling requests and responses
+│
+├── templates/               # Additional templates
+│
+├── static/                  # Static files (CSS, JavaScript, images)
+│
+├── manage.py                # Django command-line utility
+│
+├── Pipfile                  # Pipenv dependencies configuration
+├── Pipfile.lock             # Locked dependencies versions
+│
+├── Dockerfile               # Docker configuration for the application
+├── docker-compose.yml       # Docker Compose file for multi-container setup
+│
+└── README.md                # Project documentation and setup instructions
+
 
 ### Installation
 
